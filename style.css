@@ -52,6 +52,72 @@ main {
   padding-bottom: 3rem;
 }
 
+/* ======================== HOME PAGE ======================== */
+
+.home-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.home-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.home-subtitle {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.home-features {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.home-features li {
+  margin-bottom: 1rem;
+  color: #495057;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.home-alert {
+  background-color: #e8f4f8;
+  border-color: #b3d9e6;
+  border-left: 4px solid #0dcaf0;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin-bottom: 2rem;
+}
+
+.home-alert strong {
+  color: #0c5460;
+}
+
+.home-alert code {
+  background-color: transparent;
+  color: #0c5460;
+  font-weight: 600;
+}
+
+.btn-primary.btn-lg {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.375rem;
+}
+
 /* ======================== TABLES & FORMS ======================== */
 
 .table {

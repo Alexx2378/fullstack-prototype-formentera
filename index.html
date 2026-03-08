@@ -69,24 +69,26 @@
 
   <!-- HOME PAGE -->
   <section id="home-page" class="page active">
-    <h1 class="fw-bold mb-3">Welcome to the Full-Stack App</h1>
+    <div class="home-container">
+      <h1 class="home-title">Welcome to Full-Stack App</h1>
 
-    <p class="text-muted">
-      A static prototype before backend integration. Simulates:
-    </p>
+      <p class="home-subtitle">
+        A static prototype before backend integration. Simulates:
+      </p>
 
-    <ul>
-      <li>Email registration + fake verification</li>
-      <li>Login with JWT-like token simulation</li>
-      <li>Role-based UI (Admin/User)</li>
-      <li>CRUD for Employees, Departments, Accounts, Requests</li>
-    </ul>
+      <ul class="home-features">
+        <li>Email registration + fake verification</li>
+        <li>Secure login/logout</li>
+        <li>Side-based UI (Bootstrap)</li>
+        <li>CRUD for Employees, Departments</li>
+      </ul>
 
-    <div class="alert alert-info mt-3">
-      <strong>💡 Note:</strong> All data is stored in <code>localStorage</code>. Refresh to test persistence.
+      <div class="alert alert-info home-alert mt-4">
+        <strong>💡 Note:</strong> All data is stored in <code>localStorage</code>. Refresh to test.
+      </div>
+
+      <a href="#/register" class="btn btn-primary btn-lg mt-4">Get Started</a>
     </div>
-
-    <a href="#/register" class="btn btn-primary mt-3">Get Started →</a>
   </section>
 
   <!-- REGISTER PAGE -->

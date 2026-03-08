@@ -15,17 +15,17 @@ window.db = window_db;
 // ======================== INITIALIZATION ========================
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Set default route FIRST before any routing logic
+  if (!window.location.hash) {
+    window.location.hash = '#/';
+  }
+
   loadFromStorage();
   handleRouting();
   attachEventListeners();
 
   // Set up hash change listener
   window.addEventListener('hashchange', handleRouting);
-
-  // If no hash, set to home
-  if (!window.location.hash) {
-    window.location.hash = '#/';
-  }
 });
 
 // ======================== STORAGE & PERSISTENCE ========================
@@ -138,19 +138,21 @@ function handleRouting() {
     'requests': 'requests-page'
   };
 
-  const pageId = routes[route];
+  // Default to home if no route
+  const pageRoute = route || '';
+  const pageId = routes[pageRoute];
 
   // Check authentication for protected routes
   const protectedRoutes = ['profile', 'employees', 'departments', 'accounts', 'requests'];
   const adminRoutes = ['employees', 'departments', 'accounts'];
 
-  if (protectedRoutes.includes(route) && !currentUser) {
+  if (protectedRoutes.includes(pageRoute) && !currentUser) {
     navigateTo('#/login');
     showToast('Please login first', 'warning');
     return;
   }
 
-  if (adminRoutes.includes(route) && currentUser && currentUser.role !== 'admin') {
+  if (adminRoutes.includes(pageRoute) && currentUser && currentUser.role !== 'admin') {
     navigateTo('#/');
     showToast('You do not have permission to access this page', 'warning');
     return;
@@ -163,15 +165,18 @@ function handleRouting() {
       page.classList.add('active');
 
       // Call page-specific renderers
-      if (route === 'profile') {
+      if (pageRoute === 'profile') {
         renderProfile();
-      } else if (route === 'employees') {
+      } else if (pageRoute === 'verify-email') {
+        const email = localStorage.getItem('unverified_email');
+        document.getElementById('verifyEmailDisplay').textContent = email || 'unknown';
+      } else if (pageRoute === 'employees') {
         renderEmployeesTable();
-      } else if (route === 'departments') {
+      } else if (pageRoute === 'departments') {
         renderDepartmentsTable();
-      } else if (route === 'accounts') {
+      } else if (pageRoute === 'accounts') {
         renderAccountsTable();
-      } else if (route === 'requests') {
+      } else if (pageRoute === 'requests') {
         renderRequestsTable();
       }
     }
