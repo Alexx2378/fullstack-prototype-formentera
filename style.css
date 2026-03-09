@@ -452,3 +452,13 @@ main {
 .item-qty {
   max-width: 80px;
 }
+
+/* ======================== ADMIN COLUMNS ======================== */
+
+.admin-col {
+  display: none !important;
+}
+
+body.is-admin .admin-col {
+  display: table-cell !important;
+}

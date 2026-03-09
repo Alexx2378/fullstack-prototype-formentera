@@ -663,9 +663,12 @@ function renderRequestsTable() {
   const table = document.getElementById('requestsTable');
   tbody.innerHTML = '';
 
-  const userRequests = window_db.requests.filter(r => r.employeeEmail === currentUser.email);
+  // Admins see all requests, regular users see only their own
+  const displayRequests = currentUser.role === 'admin' 
+    ? window_db.requests 
+    : window_db.requests.filter(r => r.employeeEmail === currentUser.email);
 
-  if (userRequests.length === 0) {
+  if (displayRequests.length === 0) {
     noMsg.style.display = 'block';
     table.style.display = 'none';
     return;
@@ -674,19 +677,39 @@ function renderRequestsTable() {
   noMsg.style.display = 'none';
   table.style.display = 'table';
 
-  userRequests.forEach(req => {
+  displayRequests.forEach(req => {
     const itemList = req.items.map(i => `${i.name} (qty: ${i.qty})`).join(', ');
     const badgeClass = req.status === 'Pending' ? 'warning' : req.status === 'Approved' ? 'success' : 'danger';
+    
+    // Get employee name
+    const account = window_db.accounts.find(a => a.email === req.employeeEmail);
+    const employeeName = account ? `${account.firstName} ${account.lastName}` : req.employeeEmail;
 
     const row = document.createElement('tr');
+    
+    // Build action buttons - admins can approve/reject, everyone can delete own
+    let actionsHtml = '';
+    if (currentUser.role === 'admin') {
+      if (req.status === 'Pending') {
+        actionsHtml = `
+          <button class="btn btn-sm btn-success me-2" onclick="updateRequestStatus('${req.id}', 'Approved')">✓ Approve</button>
+          <button class="btn btn-sm btn-danger me-2" onclick="updateRequestStatus('${req.id}', 'Rejected')">✕ Reject</button>
+        `;
+      } else {
+        actionsHtml = `
+          <button class="btn btn-sm btn-warning me-2" onclick="updateRequestStatus('${req.id}', 'Pending')">↻ Pending</button>
+        `;
+      }
+    }
+    actionsHtml += `<button class="btn btn-sm btn-secondary" onclick="deleteRequest('${req.id}')">Delete</button>`;
+
     row.innerHTML = `
+      <td>${currentUser.role === 'admin' ? employeeName : ''}</td>
       <td>${req.type}</td>
       <td>${itemList}</td>
       <td><span class="badge badge-${badgeClass}">${req.status}</span></td>
       <td>${new Date(req.date).toLocaleDateString()}</td>
-      <td>
-        <button class="btn btn-sm btn-danger" onclick="deleteRequest('${req.id}')">Delete</button>
-      </td>
+      <td>${actionsHtml}</td>
     `;
     tbody.appendChild(row);
   });
@@ -704,6 +727,18 @@ function deleteRequest(reqId) {
     renderRequestsTable();
     showToast('Request deleted', 'success');
   }
+}
+
+function updateRequestStatus(reqId, status) {
+  const request = window_db.requests.find(r => r.id === reqId);
+  if (!request) return;
+
+  request.status = status;
+  saveToStorage();
+  renderRequestsTable();
+  
+  const message = status === 'Approved' ? 'Request approved ✓' : status === 'Rejected' ? 'Request rejected ✕' : 'Status updated to Pending';
+  showToast(message, 'success');
 }
 
 function addItemField() {
