@@ -1,464 +1,126 @@
-/* ======================== PAGE VISIBILITY ======================== */
+/* ============================================
+   PAGE VISIBILITY SYSTEM
+   ============================================ */
 
-/* Hide all pages by default */
 .page {
-  display: none;
+    display: none;
 }
 
-/* Show only active page */
 .page.active {
-  display: block;
+    display: block;
 }
 
-/* ======================== AUTHENTICATION STATE ======================== */
+/* ============================================
+   ROLE-BASED VISIBILITY
+   ============================================ */
 
-/* Hide logged-out elements when authenticated */
-body.authenticated .role-logged-out {
-  display: none !important;
-}
-
-/* Hide logged-in elements when not authenticated */
 body.not-authenticated .role-logged-in {
-  display: none !important;
+    display: none;
 }
 
-/* ======================== ADMIN VISIBILITY ======================== */
+body.authenticated .role-logged-out {
+    display: none;
+}
 
-/* Hide admin elements by default */
+/* ============================================
+   ADMIN-ONLY VISIBILITY
+   ============================================ */
+
 .role-admin {
-  display: none !important;
+    display: none;
 }
 
-/* Show admin elements when user is admin */
 body.is-admin .role-admin {
-  display: block !important;
+    display: block;
 }
 
-/* ======================== GENERAL STYLES ======================== */
-
-* {
-  box-sizing: border-box;
+/* Dropdown list-items need list-item display, not block */
+body.is-admin .dropdown-menu .role-admin {
+    display: list-item;
 }
 
-body {
-  background-color: #f8f9fa;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-}
-
-main {
-  min-height: 100vh;
-  padding-bottom: 3rem;
-}
-
-/* ======================== HOME PAGE ======================== */
-
-.home-container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 3rem 2rem;
-  background-color: #ffffff;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.home-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #212529;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
-}
-
-.home-subtitle {
-  font-size: 1.1rem;
-  color: #6c757d;
-  margin-bottom: 1.5rem;
-  font-weight: 500;
-}
-
-.home-features {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.home-features li {
-  margin-bottom: 1rem;
-  color: #495057;
-  font-size: 1rem;
-  line-height: 1.8;
-}
-
-.home-alert {
-  background-color: #e8f4f8;
-  border-color: #b3d9e6;
-  border-left: 4px solid #0dcaf0;
-  padding: 1rem;
-  border-radius: 0.375rem;
-  margin-bottom: 2rem;
-}
-
-.home-alert strong {
-  color: #0c5460;
-}
-
-.home-alert code {
-  background-color: transparent;
-  color: #0c5460;
-  font-weight: 600;
-}
-
-.btn-primary.btn-lg {
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 0.375rem;
-}
-
-/* ======================== TABLES & FORMS ======================== */
-
-.table {
-  background-color: white;
-  border-radius: 0.375rem;
-}
-
-.table thead {
-  background-color: #f8f9fa;
-  font-weight: 600;
-  color: #495057;
-}
-
-.table tbody tr:hover {
-  background-color: #f8f9fa;
-}
-
-.card {
-  border-radius: 0.375rem;
-  border: 1px solid #e9ecef;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.card-body {
-  padding: 1.5rem;
-}
-
-/* ======================== FORMS & MODALS ======================== */
-
-.form-control,
-.form-select {
-  border-radius: 0.375rem;
-  border: 1px solid #dee2e6;
-  font-size: 0.95rem;
-}
-
-.form-control:focus,
-.form-select:focus {
-  border-color: #80bdff;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.form-label {
-  font-weight: 500;
-  color: #495057;
-  margin-bottom: 0.5rem;
-}
-
-.modal-content {
-  border-radius: 0.375rem;
-  border: 1px solid #dee2e6;
-}
-
-/* ======================== BUTTONS ======================== */
-
-.btn {
-  border-radius: 0.375rem;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
-}
-
-.btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
-}
-
-.btn-success {
-  background-color: #28a745;
-  border-color: #28a745;
-}
-
-.btn-success:hover {
-  background-color: #218838;
-  border-color: #218838;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
-}
-
-.btn-danger:hover {
-  background-color: #c82333;
-  border-color: #c82333;
-}
-
-/* ======================== ALERTS & TOASTS ======================== */
-
-.alert {
-  border-radius: 0.375rem;
-  border: 1px solid transparent;
-  margin-bottom: 1rem;
-}
-
-.alert-info {
-  background-color: #d1ecf1;
-  border-color: #bee5eb;
-  color: #0c5460;
-}
-
-.alert-success {
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-  color: #155724;
-}
-
-.alert-danger {
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
-  color: #721c24;
-}
-
-.alert-warning {
-  background-color: #fff3cd;
-  border-color: #ffeeba;
-  color: #856404;
-}
-
-.toast {
-  min-width: 300px;
-  position: fixed;
-  z-index: 1050;
-  padding: 1rem;
-  margin: 1rem;
-  border-radius: 0.375rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  animation: slideIn 0.3s ease-out;
-}
-
-.toast-success {
-  background-color: #28a745;
-  color: white;
-}
-
-.toast-error {
-  background-color: #dc3545;
-  color: white;
-}
-
-.toast-info {
-  background-color: #17a2b8;
-  color: white;
-}
-
-.toast-warning {
-  background-color: #ffc107;
-  color: #333;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(400px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* ======================== NAVBAR CUSTOMIZATION ======================== */
-
-.navbar {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+/* ============================================
+   NAVBAR STYLING
+   ============================================ */
 
 .navbar-brand {
-  font-size: 1.125rem;
-  letter-spacing: -0.5px;
+    font-weight: bold;
 }
 
-.nav-link {
-  transition: color 0.2s ease;
+/* ============================================
+   LAYOUT
+   ============================================ */
+
+main {
+    min-height: calc(100vh - 56px);
+    padding-bottom: 2rem;
 }
 
-.nav-link:hover {
-  color: #80bdff !important;
+/* ============================================
+   TOAST CONTAINER
+   ============================================ */
+
+.toast-container {
+    z-index: 1090;
 }
 
-/* ======================== DROPDOWN MENU ======================== */
+/* ============================================
+   TABLES
+   ============================================ */
 
-.dropdown-menu {
-  border-radius: 0.375rem;
-  border: 1px solid #dee2e6;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+.table th {
+    white-space: nowrap;
 }
 
-.dropdown-item {
-  padding: 0.5rem 1rem;
-  color: #495057;
-  transition: background-color 0.15s ease-in-out;
+.table td .btn {
+    white-space: nowrap;
 }
 
-.dropdown-item:hover {
-  background-color: #f8f9fa;
-  color: #0056b3;
-}
-
-.dropdown-item.active,
-.dropdown-item:active {
-  background-color: #007bff;
-  color: white;
-}
-
-/* ======================== TABLE ACTIONS ======================== */
-
-.btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 0.25rem;
-}
-
-/* ======================== RESPONSIVE ======================== */
-
-@media (max-width: 768px) {
-  main {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .card {
-    margin-bottom: 1rem;
-  }
-
-  .table {
-    font-size: 0.875rem;
-  }
-
-  .btn-sm {
-    font-size: 0.75rem;
-    padding: 0.2rem 0.4rem;
-  }
-
-  .toast {
-    min-width: 280px;
-    font-size: 0.875rem;
-  }
-}
-
-/* ======================== UTILITY CLASSES ======================== */
-
-.fw-semibold {
-  font-weight: 600;
-}
-
-.text-muted {
-  color: #6c757d;
-}
-
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-
-.mb-3 {
-  margin-bottom: 1rem;
-}
-
-.mt-3 {
-  margin-top: 1rem;
-}
-
-.mt-4 {
-  margin-top: 1.5rem;
-}
-
-.me-2 {
-  margin-right: 0.5rem;
-}
-
-/* ======================== ITEM ROW STYLING ======================== */
-
-.item-row {
-  padding: 0.5rem;
-  background-color: #f8f9fa;
-  border-radius: 0.375rem;
-  border: 1px solid #e9ecef;
-}
-
-.item-row .row {
-  align-items: center;
-}
-
-/* ======================== BADGE STYLES ======================== */
+/* ============================================
+   BADGE HELPERS
+   ============================================ */
 
 .badge {
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.25rem;
-  font-weight: 500;
+    font-size: 0.85em;
 }
 
-.badge-warning {
-  background-color: #ffc107;
-  color: #333;
+/* ============================================
+   FORM CARDS
+   ============================================ */
+
+#employee-form-card,
+#account-form-card,
+#department-form-card {
+    max-width: 600px;
 }
 
-.badge-success {
-  background-color: #28a745;
-  color: white;
+/* ============================================
+   REQUEST ITEMS
+   ============================================ */
+
+.request-item .remove-item-btn {
+    width: 100%;
 }
 
-.badge-danger {
-  background-color: #dc3545;
-  color: white;
+/* ============================================
+   PROFILE CARD
+   ============================================ */
+
+#profile-content .card {
+    max-width: 450px;
 }
 
-.badge-primary {
-  background-color: #007bff;
-  color: white;
-}
+/* ============================================
+   RESPONSIVE TWEAKS
+   ============================================ */
 
-/* ======================== INPUT STYLING ======================== */
+@media (max-width: 768px) {
+    .table {
+        font-size: 0.85rem;
+    }
 
-.item-name,
-.item-qty {
-  font-size: 0.9rem;
-}
-
-.item-qty {
-  max-width: 80px;
-}
-
-/* ======================== ADMIN COLUMNS ======================== */
-
-.admin-col {
-  display: none !important;
-}
-
-body.is-admin .admin-col {
-  display: table-cell !important;
+    .table .btn-sm {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.4rem;
+    }
 }
